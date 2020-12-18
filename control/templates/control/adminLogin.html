@@ -1,0 +1,78 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .frame{
+            width: 50%;
+            margin: 10% auto;
+            height: 75%;
+            padding: 5%;
+            border: solid 2px blue;
+            border-radius: 5%;
+            position: relative;
+            background-color: aliceblue;
+        }
+        .but{
+            margin-top: 10%;
+        }
+        .bot{
+            bottom: 0;
+            position: absolute;
+            margin-left: 21%;
+        }
+        a{
+            text-decoration: none;
+        }
+        body{
+          background-image: url('/static/images/bg-01.jpg');
+          background-size: 100% 100%;
+          background-position: center;
+          background-size: cover;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <form action="{% url 'manage:admin_login' %}" method="POST">
+        {% csrf_token %}
+        <div class="frame">
+            <div class="form-group text-center">
+                <h2>Admin Login</h2>
+            </div>
+            <div class="form-group">
+                <label for="Username">Username</label>
+                <input type="text" name="username" id="" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" class="form-control" name="password" id="" placeholder="Password" required>
+            </div>
+            <div class="form-group text-center">
+                <label for="">Login as</label>
+                <select name="role">
+                    <option value="admin">Admin</option>
+                    <option value="librarian">Librarian</option>
+                </select>
+            </div>
+            {% if message %}
+            <div class="form-group text-center">
+                <p style="color: red; font-size: large;">{{ message }}</p>
+            </div>
+            {% endif %}
+            <div class="form-group text-center but">
+                <input name="submit" id="" class="btn btn-success" type="submit" value="Login">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends 'control/baseLibrarian.html' %}
+{% block content %}
+ <style>
+        .frame{
+            width: 70%;
+            margin: 5% auto;
+            padding: 5%;
+        }
+    </style>
+    <form method="post">
+        {% csrf_token %}
+        <div class="frame">
+            <p class="text-center">Are you sure you want to delete "{{ object.username }}"?</p>
+            <div class="group text-center">
+                <input type="submit" value="Confirm" class="btn btn-success">
+                <a href="{% url 'manage:user_list' %}" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+
+{% endblock %}

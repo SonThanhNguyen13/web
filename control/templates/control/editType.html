@@ -1,0 +1,37 @@
+{% extends "control/baseLibrarian.html" %}
+{% block content %}
+<style>
+        .frame{
+            width: 50%;
+            margin: 30% auto;
+            padding: 5%;
+            border-radius: 10%;
+            border: 2px solid rgb(69, 69, 173);
+            background-color: white;
+        }
+
+</style>
+<div class="container">
+    <form action="{% url 'manage:edit_type' i.id %}" method="POST">
+        {% csrf_token %}
+        <div class="frame">
+            <h1 class="text-center">Edit type {{ i.name }}</h1>
+            <div class="form-group">
+                <label for="">Book's type</label>
+                <input type="text" name="type" id="" class="form-control" placeholder="Type" required>
+            </div>
+            {% if message %}
+            <div class="form-group text-center">
+                <p style="color: red; font-size: large;">{{ message }}</p>
+            </div>
+            {% endif %}
+            <div class="group text-center">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a href="{% url 'manage:librarian_index' %}">
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

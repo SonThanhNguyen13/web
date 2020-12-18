@@ -1,0 +1,72 @@
+{% extends 'control/baseAdmin.html' %}
+{% block content %}
+<style>
+    .frame {
+      width: 40%;
+      margin: auto;
+      padding: 5%;
+      border-radius: 10%;
+      border: 2px solid rgb(69, 69, 173);
+      background-color: white;
+    }
+
+
+
+
+
+
+</style>
+<script>
+       function updateInput(key, value){
+            document.getElementById(key).value = value;
+            console.log(key, value)
+        }
+
+
+
+
+
+</script>
+<form action="{% url 'manage:edit_user' user.id %}" method="POST">
+    {% csrf_token %}
+    <div class="frame">
+        <h1 class="text-center">Edit user {{ user.username }}</h1>
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select class="form-control" name="role" id="role" onchange="updateInput('role', this.value)">
+                <option value="admin">Admin</option>
+                <option value="librarian">Librarian</option>
+                <option value="student/teacher">Student/Teacher</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email *</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Email" value={{ user.email }}
+                   onchange="updateInput('email', this.value)" required>
+        </div>
+        <div class="form-group">
+            <label for="Address">Address</label>
+            <input type="text" name="address" id="address" class="form-control" placeholder="Address"
+                    onchange="updateInput('address', this.value)" value={{ user.address }}>
+        </div>
+        <div class="form-group">
+            <label for="Phone">Phone</label>
+            <input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone" pattern="[0-9]{10}"
+                   aria-describedby="helpId" onchange="updateInput('phone', this.value)" value={{ user.phone }}>
+            <small id="helpId" class="text-muted">Format: 1234567890</small>
+        </div>
+        {% if message %}
+        <div class="form-group text-center">
+            <p style="color: red; font-size: large;">{{ message }}</p>
+        </div>
+        {% endif %}
+        <div class="group text-center">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a href="{% url 'manage:user_list' %}">
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </a>
+
+        </div>
+    </div>
+</form>
+{% endblock %}

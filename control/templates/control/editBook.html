@@ -1,0 +1,94 @@
+{% extends "control/baseLibrarian.html" %}
+{% block content %}
+<style>
+        .frame{
+            width: 70%;
+            margin: 5% auto;
+            padding: 5%;
+            border: 2px solid rgb(69, 69, 173);
+            background-color: white;
+        }
+
+
+</style>
+<script>
+       function updateInput(key, value){
+            document.getElementById(key).value = value;
+            console.log(key, value)
+        }
+
+
+</script>
+<div class="container">
+    <form action="{% url 'manage:edit_book' book.id %}" method="POST">
+        <div class="frame">
+            {% csrf_token %}
+            <h1 class="text-center">Edit book {{ book.name }}</h1>
+            <div class="form-group">
+                <label for="">Book's name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Name" value='{{book.name}}'
+                       onchange="updateInput('name', this.value)" required>
+            </div>
+            <div class="form-group">
+                <label for="">Book's author</label>
+                <input type="text" name="author" id="author" class="form-control" placeholder="Author"
+                       value={{book.author}} onchange="updateInput('author', this.value)" required>
+            </div>
+            <div class="form-group">
+                <label for="">Year publised</label>
+                <input type="text" name="year" id="year" class="form-control" placeholder="Year" value={{book.year}}
+                       onchange="updateInput('author', this.value)" required>
+            </div>
+            <div class="form-group">
+                <label for="">Company publised</label>
+                <input type="text" name="company" id="company" class="form-control" placeholder="Company"
+                       value='{{book.company}}' onchange="updateInput('company', this.value)" required>
+            </div>
+            <div class="form-group">
+                <label for="">Type</label>
+                <select name="type" id="">
+                    {% for i in type %}
+                    {% if i == book.category %}
+                        <option value='{{i.name}}' selected>{{i.name}}</option>
+                    {% endif %}
+                    <option value='{{i.name}}'>{{i.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Description</label>
+                <textarea name="description" id="" class="form-control" placeholder="Description" rows="4" cols="50">{{book.description}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="">Stock</label>
+                <input type="number" name="num" id="num" class="form-control" min="0" step="1" value={{book.stock}}
+                       onchange="updateInput('num', this.value)">
+            </div>
+            <div class="form-group">
+                <label for="">Max in stock</label>
+                <input type="number" name="max_stock" id="max_stock" class="form-control" min="0" step="1"
+                       value={{book.max_stock}}
+                       onchange="updateInput('max_stock', this.value)">
+            </div>
+            <div class="form-group">
+                <label for="">Price</label>
+                <input type="number" name="price" id="price" class="form-control" min="0" step="1"
+                       value={{book.price}} onchange="updateInput('author', this.value)">
+            </div>
+            {% if messages %}
+            {% for message in messages %}
+            <div class="form-group text-center">
+                <p style="color: red; font-size: large;">{{ message }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="group text-center">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a href="{% url 'manage:book_list' %}">
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

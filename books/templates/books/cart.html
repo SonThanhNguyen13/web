@@ -1,0 +1,138 @@
+{% extends 'books/baseUser.html' %}
+{% block content %}
+<style>
+    .aaaa{
+        margin-top:10%;
+    }
+
+
+
+</style>
+<h4 class="text-center">Borrow</h4>
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <td style="text-align: center;">Id</td>
+        <td style="text-align: center;">Name</td>
+        <td style="text-align: center;">Author</td>
+        <td style="text-align: center;">Year published</td>
+        <td style="text-align: center;">Publisher</td>
+        <td style="text-align: center;">Type</td>
+        <td style="text-align: center;">Description</td>
+        <td style="text-align: center;">Stock</td>
+        <td style="text-align: center;">Price</td>
+        <td style="text-align: center;">Action</td>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in books %}
+    <tr>
+        <td class="text-center">
+            {{ i.id }}
+        </td>
+        <td class="text-center">
+            {{ i.name }}
+        </td>
+        <td class="text-center">
+            {{ i.author }}
+        </td>
+        <td class="text-center">
+            {{ i.year }}
+        </td>
+        <td class="text-center">
+            {{ i.company }}
+        </td>
+        <td class="text-center">
+            {{ i.category.name }}
+        </td>
+        <td class="text-center">
+            {{ i.description }}
+        </td>
+        <td class="text-center">
+            {{ i.stock }}
+        </td>
+        <td class="text-center">
+            {{ i.price }}
+        </td>
+        <td class="text-center">
+            <a href="{% url 'user:remove_from_cart' i.id %}" class="btn btn-danger">Remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if messages %}
+{% for message in messages %}
+<div class="form-group text-center">
+    <p style="color: red; font-size: large;">{{ message }}</p>
+</div>
+{% endfor %}
+{% endif %}
+<div class='text-center'>
+    <a href="{% url 'user:submit_cart' %}">
+        <button class="btn btn-success text-center">
+            Submit
+        </button>
+    </a>
+</div>
+{% if cart_id %}
+<div class='text-center' style="margin-top: 2%">
+<a href="{% url 'user:cancel_order' cart_id %}">
+    <button class="btn btn-danger text-center">
+        Cancel Order
+    </button>
+</a>
+</div>
+{% endif %}
+<h4 class="text-center aaaa">Submitted</h4>
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <td style="text-align: center;">Id</td>
+        <td style="text-align: center;">Name</td>
+        <td style="text-align: center;">Author</td>
+        <td style="text-align: center;">Year published</td>
+        <td style="text-align: center;">Publisher</td>
+        <td style="text-align: center;">Type</td>
+        <td style="text-align: center;">Description</td>
+        <td style="text-align: center;">Number</td>
+        <td style="text-align: center;">Price</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in submitted_books %}
+    <tr>
+        <td class="text-center">
+            {{ i.id }}
+        </td>
+        <td class="text-center">
+            {{ i.name }}
+        </td>
+        <td class="text-center">
+            {{ i.author }}
+        </td>
+        <td class="text-center">
+            {{ i.year }}
+        </td>
+        <td class="text-center">
+            {{ i.company }}
+        </td>
+        <td class="text-center">
+            {{ i.category.name }}
+        </td>
+        <td class="text-center">
+            {{ i.description }}
+        </td>
+        <td class="text-center">
+            1
+        </td>
+        <td class="text-center">
+            {{ i.price }}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

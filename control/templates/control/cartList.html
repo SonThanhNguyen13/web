@@ -1,0 +1,39 @@
+{% extends 'control/baseLibrarian.html' %}
+{% block content %}
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <td style="text-align: center;">Id</td>
+        <td style="text-align: center;">Username</td>
+        <td style="text-align: center;">Books</td>
+        <td style="text-align: center;">Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in carts %}
+    <tr>
+        <td class="text-center">
+            {{ forloop.counter }} {{ j }}
+        </td>
+        <td class="text-center">
+            {{ i.username }}
+        </td>
+        <td class="text-center">
+            {{ i.book_list }}
+        </td>
+        <td class="text-center">
+            <a href="{% url 'manage:return_book' i.id%}" class="btn btn-danger">Returned</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if messages %}
+{% for message in messages %}
+<div class="form-group text-center">
+    <p style="color: red; font-size: large;">{{ message }}</p>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+

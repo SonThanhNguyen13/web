@@ -1,0 +1,90 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Register</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .frame{
+            width: 40%;
+            margin: 3% auto;
+            padding: 5%;
+            border-radius: 10%;
+            border: 2px solid rgb(69, 69, 173);
+            background-color: white;
+            position: relative;
+        }
+        body{
+            background-image: url('/static/images/bg-02.jpg');
+            background-position: center;
+            background-size: 100% 100%;
+            background-size: cover;
+        }
+        .but{
+            margin-top: 10%;
+            position: absolute;
+            bottom: 0;
+            margin-left: 23%;
+        }
+    </style>
+  <body>
+      <div class="container">
+        <form action="{% url 'user:register' %}" method="POST">
+            {% csrf_token %}
+            <div class="frame">
+                <h1 class="text-center">Register</h1>
+                <div class="form-group">
+                  <label for="">Username *</label>
+                  <input type="text" name="username" id="" class="form-control" placeholder="Username" required aria-describedby="helpId">
+                    <small id="helpId" class="text-muted">8 to 25 characters. Only contain letters & numbers</small>
+                </div>
+                <div class="form-group">
+                  <label for="Password">Password *</label>
+                  <input type="password" name="password" id="" class="form-control" placeholder="Password" require daria-describedby="helpId">
+                    <small id="helpId" class="text-muted">At least 8 characters, include at least 1 uppercase, 1 lowercase, 1 number, 1 special charaters</small>
+                </div>
+                <div class="form-group">
+                    <label for="Password">Confirm Password *</label>
+                    <input type="password" name="cnf_password" id="" class="form-control" placeholder="Confirm Password" required>
+                  </div>
+                <div class="form-group">
+                    <label for="Email">Email *</label>
+                    <input type="email" name="email" id="" class="form-control" placeholder="Email" required aria-describedby="helpId">
+                    <small id="helpId" class="text-muted">Email is used to reset password. Input correct email you use</small>
+                </div>
+                <div class="form-group">
+                    <label for="Address">Address</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <label for="Phone">Phone</label>
+                    <input type="tel" name="phone" id="" class="form-control" placeholder="Phone" pattern="[0-9]{10}" aria-describedby="helpId">
+                    <small id="helpId" class="text-muted">Format: 1234567890</small>
+                </div>
+              {% if message %}
+              <div class="form-group text-center">
+                <p style="color: red; font-size: large;">{{ message }}</p>
+              </div>
+              {% endif %}
+                <div class="group text-center">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a href="{% url 'user:login' %}">
+                        <button type="button" class="btn btn-danger">Cancel</button>
+                    </a>
+                </div>
+                <div class="form-group text-center but">
+                    <span>Forgot</span>
+                    <a href="forget.html">password?</a>
+                </div>
+            </div>
+        </form>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  </body>
+</html>

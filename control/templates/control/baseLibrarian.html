@@ -1,0 +1,98 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Librarian</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sidebar a {
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: large;
+      color: aliceblue;
+      margin-top: 10%;
+      padding: 5%;
+      border: solid 1px lightcyan;
+      text-decoration: none;
+    }
+    .sidebar a:hover{
+      background-color: skyblue;
+    }
+
+    .sidebar img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .content {
+      margin-top: 10%;
+    }
+    body{
+      background-image: url('/static/images/bg-03.jpg');
+      height: 100%;
+      background-size: cover;
+      backgorund-position: center;
+      background-repeat: no-repeat;
+    }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 px-1 bg-dark position-fixed sidebar" id="sticky-sidebar" style="height: 100%;">
+            <div class="nav flex-column flex-nowrap vh-100 overflow-auto text-white p-2">
+                <img
+                        src="{% static 'images/librarian.jpg' %}"
+                        alt="">
+                <a href="{% url 'manage:librarian_index' %}">
+                    Home
+                </a>
+                <a href="{% url 'manage:book_list' %}">
+                    Book List
+                </a>
+                <a href="{% url 'manage:type_list' %}">
+                    Show book type
+                </a>
+                <a href="{% url 'manage:cart_list' %}">
+                    Show cart
+                </a>
+                <a href="{% url 'manage:librarian_change_pass' %}">
+                    Change Password
+                </a>
+                <a href="{% url 'manage:admin_logout' %}">
+                    Log out
+                </a>
+            </div>
+        </div>
+        <div class="col-10 offset-2" id="main" class="main" style="postion:relative;">
+            <div class="info">
+                <h4 class="text-center">Nguyen Thanh Son - AT130643 - AT13GU</h4>
+                <h4 class="text-center"> Number 36th</h4>
+            </div>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+<footer style="position: fixed; bottom:0; color:white; margin-left:4%;">&copy; Copyright 2020 STN</footer>
+</html>

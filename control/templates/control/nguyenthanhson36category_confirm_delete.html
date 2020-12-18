@@ -1,0 +1,21 @@
+{% extends 'control/baseLibrarian.html' %}
+{% block content %}
+ <style>
+        .frame{
+            width: 70%;
+            margin: 5% auto;
+            padding: 5%;
+        }
+    </style>
+    <form method="post">
+        {% csrf_token %}
+        <div class="frame">
+            <p class="text-center">Are you sure you want to delete <b>"{{ object.name }}" </b>?</p>
+            <p class="text-center">Delete <b>"{{ object.name }}"</b> will also delete <b>ALL</b> books in this category</p>
+            <div class="group text-center">
+                <input type="submit" value="Confirm" class="btn btn-success">
+                <a href="{% url 'manage:type_list' %}" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+
+{% endblock %}

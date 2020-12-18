@@ -1,0 +1,76 @@
+{% extends 'books/baseUser.html' %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="form-group text-center">
+    <p style="color: red; font-size: large;">{{ message }}</p>
+</div>
+{% endfor %}
+{% endif %}
+<form action="{% url 'user:book_list' %}" , method="POST">
+    {% csrf_token %}
+    <div class="search_group text-right" style="margin-bottom:3%">
+        <input type="text" placeholder="Search by name..." name="search" style="">
+        <button type="submit">Search</button>
+    </div>
+</form>
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <td style="text-align: center;">Id</td>
+        <td style="text-align: center;">Name</td>
+        <td style="text-align: center;">Author</td>
+        <td style="text-align: center;">Year published</td>
+        <td style="text-align: center;">Company publised</td>
+        <td style="text-align: center;">Type</td>
+        <td style="text-align: center;">Description</td>
+        <td style="text-align: center;">Stock</td>
+        <td style="text-align: center;">Price</td>
+        <td style="text-align: center;">Action</td>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in books %}
+    <tr>
+        <td class="text-center">
+            {{ forloop.counter }}
+        </td>
+        <td class="text-center">
+            {{ i.name }}
+        </td>
+        <td class="text-center">
+            {{ i.author }}
+        </td>
+        <td class="text-center">
+            {{ i.year }}
+        </td>
+        <td class="text-center">
+            {{ i.company }}
+        </td>
+        <td class="text-center">
+            {{ i.category.name }}
+        </td>
+        <td class="text-center">
+            {{ i.description }}
+        </td>
+        <td class="text-center">
+            {{ i.stock }}
+        </td>
+        <td class="text-center">
+            {{ i.price }}
+        </td>
+        {% if i.stock > 0 %}
+        <td class="text-center">
+            <a href="{% url 'user:add_to_cart' i.id %}" class="btn btn-info">Borrow</a>
+        </td>
+        {% else %}
+        <td class="text-center">
+            <p class="text-center">Out of stock</p>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

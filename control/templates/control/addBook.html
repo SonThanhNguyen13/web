@@ -1,0 +1,70 @@
+{% extends "control/baseLibrarian.html" %}
+{% block content %}
+<style>
+        .frame{
+            width: 50%;
+            margin: auto;
+            padding: 5%;
+            border-radius: 10%;
+            border: 2px solid rgb(69, 69, 173);
+            background-color: white;
+        }
+
+</style>
+<div class="container">
+    <form action="{% url 'manage:add_book' %}" method="POST">
+        <div class="frame">
+            {% csrf_token %}
+            <h1 class="text-center">Add book</h1>
+            <div class="form-group">
+                <label for="">Book's name</label>
+                <input type="text" name="name" id="" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="form-group">
+                <label for="">Book's author</label>
+                <input type="text" name="author" id="" class="form-control" placeholder="Author" required>
+            </div>
+            <div class="form-group">
+                <label for="">Year publised</label>
+                <input type="text" name="year" id="" class="form-control" placeholder="Year" required>
+            </div>
+            <div class="form-group">
+                <label for="">Company publised</label>
+                <input type="text" name="company" id="" class="form-control" placeholder="Company" required>
+            </div>
+            <div class="form-group">
+                <label for="">Type</label>
+                <select name="type" id="">
+                    {% for i in type %}
+                    <option value='{{i}}'>{{i}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Description</label>
+                <textarea name="description" id="" class="form-control" placeholder="Description" rows="4"
+                          cols="50"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="">Number</label>
+                <input type="number" name="num" id="" class="form-control" min="1" step="1" required>
+            </div>
+            <div class="form-group">
+                <label for="">Price</label>
+                <input type="number" name="price" id="" class="form-control" min="1" step="1" required>
+            </div>
+            {% if message %}
+            <div class="form-group text-center">
+                <p style="color: red; font-size: large;">{{ message }}</p>
+            </div>
+            {% endif %}
+            <div class="group text-center">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a href="{% url 'manage:book_list' %}">
+                    <button type="button" class="btn btn-danger">Cancel</button>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
